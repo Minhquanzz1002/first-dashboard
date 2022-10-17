@@ -27,6 +27,7 @@ dfGroupByYear["YEAR_ID"] = dfGroupByYear.index
 locale.setlocale(locale.LC_ALL, 'English_United States.1252')
 
 app = Dash(__name__)
+server = app.server
 app.title = 'Trực quan hóa dữ liệu'
 
 figDoanhSoBanHangTheoNam = px.bar(dfGroupByYear, x='YEAR_ID', y="SALES",

@@ -24,7 +24,7 @@ dfGroupByYear = df.groupby("YEAR_ID").sum()
 dfGroupByYear["YEAR_ID"] = dfGroupByYear.index
 
 # TRỰC QUAN HÓA DỮ LIỆU WEB APP
-locale.setlocale(locale.LC_ALL, 'English_United States.1252')
+# locale.setlocale(locale.LC_ALL, 'English_United States.1252')
 
 app = Dash(__name__)
 server = app.server
@@ -49,10 +49,15 @@ figTileLoiNhuan = px.sunburst(df, path=['YEAR_ID', 'MONTH_ID'], values='PROFIT',
                               labels={'parent': 'Năm', 'id': 'Năm/tháng', 'PROFIT': 'Lợi nhuận', 'PROFIT_sum': 'Tổng lợi nhuận'},
                               title='Tỉ lệ đóng góp của lợi nhuận theo từng danh mục trong từng năm')
 
-total_sales = locale.currency(round(df["SALES"].sum(), 2), grouping=True)
-total_profit = locale.currency(round(df['PROFIT'].sum(), 2), grouping=True)
-top_sales = locale.currency(df['SALES'].max(), grouping=True)
-top_profit = locale.currency(round(df['PROFIT'].max(), 2), grouping=True)                              
+# total_sales = locale.currency(round(df["SALES"].sum(), 2), grouping=True)
+# total_profit = locale.currency(round(df['PROFIT'].sum(), 2), grouping=True)
+# top_sales = locale.currency(df['SALES'].max(), grouping=True)
+# top_profit = locale.currency(round(df['PROFIT'].max(), 2), grouping=True)
+
+total_sales = round(df["SALES"].sum(), 2)
+total_profit = round(df['PROFIT'].sum(), 2)
+top_sales = df['SALES'].max()
+top_profit = round(df['PROFIT'].max(), 2)
 
 app.layout = html.Div(
     children=[

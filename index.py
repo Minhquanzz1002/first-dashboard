@@ -54,7 +54,8 @@ figTileLoiNhuan = px.sunburst(df, path=['YEAR_ID', 'MONTH_ID'], values='PROFIT',
 # top_sales = locale.currency(df['SALES'].max(), grouping=True)
 # top_profit = locale.currency(round(df['PROFIT'].max(), 2), grouping=True)
 
-total_sales = round(df["SALES"].sum(), 2)
+# total_sales = round(df["SALES"].sum(), 2)
+total_sales = "${:,.2f}".format(round(df["SALES"].sum(), 2))
 total_profit = round(df['PROFIT'].sum(), 2)
 top_sales = df['SALES'].max()
 top_profit = round(df['PROFIT'].max(), 2)

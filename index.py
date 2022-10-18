@@ -28,24 +28,24 @@ app = Dash(__name__)
 server = app.server
 app.title = 'Trực quan hóa dữ liệu'
 
-figDoanhSoBanHangTheoNam = px.bar(dfGroupByYear, x='YEAR_ID', y="SALES",
-                                    title='Doanh số bán hàng theo năm', color='YEAR_ID',
-                                    labels={'YEAR_ID': 'Năm', 'SALES': 'Doanh số'})
+fig_sales_by_year = px.bar(dfGroupByYear, x='YEAR_ID', y="SALES",
+                           title='Doanh số bán hàng theo năm', color='YEAR_ID',
+                           labels={'YEAR_ID': 'Năm', 'SALES': 'Doanh số'})
 
-figLoiNhuanBanHangTheoNam = px.line(dfGroupByYear, x='YEAR_ID', y="PROFIT",
-                                    title='Lợi nhuận bán hàng theo năm',
-                                    labels={'YEAR_ID': 'Năm', 'PROFIT': 'Lợi nhuận'})
+fig_profit_by_year = px.line(dfGroupByYear, x='YEAR_ID', y="PROFIT",
+                             title='Lợi nhuận bán hàng theo năm',
+                             labels={'YEAR_ID': 'Năm', 'PROFIT': 'Lợi nhuận'})
 
 
-figTileDoanhSo = px.sunburst(df, path=['YEAR_ID', 'MONTH_ID'], values='SALES',
-                             color='SALES',
-                             labels={'parent': 'Năm', 'id': 'Năm/tháng','SALES': 'Doanh số', 'SALES_sum': 'Tổng doanh số'},
-                             title='Tỉ lệ đóng góp của doanh số theo từng danh mục trong từng năm')
+fig_sales_ratio = px.sunburst(df, path=['YEAR_ID', 'MONTH_ID'], values='SALES',
+                              color='SALES',
+                              labels={'parent': 'Năm', 'id': 'Năm/tháng','SALES': 'Doanh số', 'SALES_sum': 'Tổng doanh số'},
+                              title='Tỉ lệ đóng góp của doanh số theo từng danh mục trong từng năm')
 
-figTileLoiNhuan = px.sunburst(df, path=['YEAR_ID', 'MONTH_ID'], values='PROFIT',
-                              color='PROFIT',
-                              labels={'parent': 'Năm', 'id': 'Năm/tháng', 'PROFIT': 'Lợi nhuận', 'PROFIT_sum': 'Tổng lợi nhuận'},
-                              title='Tỉ lệ đóng góp của lợi nhuận theo từng danh mục trong từng năm')
+fig_profit_ratio = px.sunburst(df, path=['YEAR_ID', 'MONTH_ID'], values='PROFIT',
+                               color='PROFIT',
+                               labels={'parent': 'Năm', 'id': 'Năm/tháng', 'PROFIT': 'Lợi nhuận', 'PROFIT_sum': 'Tổng lợi nhuận'},
+                               title='Tỉ lệ đóng góp của lợi nhuận theo từng danh mục trong từng năm')
 
 total_sales = "${:,.2f}".format(round(df["SALES"].sum(), 2))
 total_profit = "${:,.2f}".format(round(df['PROFIT'].sum(), 2))
@@ -105,19 +105,19 @@ app.layout = html.Div(
                 html.Div(
                     children=[
                         html.Div(
-                            children=[dcc.Graph(id='doanhsotheonam',figure=figDoanhSoBanHangTheoNam)],
+                            children=[dcc.Graph(id='doanhsotheonam', figure=fig_sales_by_year)],
                             className='card_chart'
                         ),
                         html.Div(
-                            children=[dcc.Graph(id='tiledoanhso',figure=figTileDoanhSo)],
+                            children=[dcc.Graph(id='tiledoanhso', figure=fig_sales_ratio)],
                             className='card_chart'
                         ),
                         html.Div(
-                            children=[dcc.Graph(id='loinhuanthoenam',figure=figLoiNhuanBanHangTheoNam)],
+                            children=[dcc.Graph(id='loinhuanthoenam', figure=fig_profit_by_year)],
                             className='card_chart'
                         ),
                         html.Div(
-                            children=[dcc.Graph(id='tileloinhuan',figure=figTileLoiNhuan)],
+                            children=[dcc.Graph(id='tileloinhuan', figure=fig_profit_ratio)],
                             className='card_chart'
                         )
                     ],

@@ -129,5 +129,6 @@ app.layout = html.Div(
     className='wrapper'
 )
 
+
 if __name__ == '__main__':
     app.run_server()

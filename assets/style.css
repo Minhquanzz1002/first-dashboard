@@ -3,11 +3,10 @@ body{
 }
 .header {
     background-color: #2196F3;
-    height: 50px;
 }
 
 .header_title{
-    float: left;
+    display: inline-block;
     width: 45%;
     padding-left: 5%;
     color: white;
@@ -21,7 +20,7 @@ body{
 }
 
 .card_statistic {
-    float: left;
+    display: inline-block;
     width: calc(25% - 30px);
     box-shadow: 2px 2px 12px black;
     margin: 10px;
@@ -37,4 +36,22 @@ body{
     width: calc(50% - 20px);
     margin: 10px;
     box-shadow: 2px 2px 12px black;
+}
+
+@media only screen and (max-width: 1000px){
+    .card_statistic, .card_chart{
+        float: none;
+        width: 100%;
+        padding: 0;
+        margin: 0
+    }
+    .header_title, .card_statistic{
+        display: block;
+        width: 100%;
+    }
+
+    .content_statistic, .content_chart{
+        margin: 0;
+        margin-top: 20px;
+    }
 }

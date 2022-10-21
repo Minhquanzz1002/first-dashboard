@@ -39,12 +39,12 @@ fig_profit_by_year = px.line(dfGroupByYear, x='YEAR_ID', y="PROFIT",
 
 fig_sales_ratio = px.sunburst(df, path=['YEAR_ID', 'CATEGORY'], values='SALES',
                               color='SALES',
-                              labels={'parent': 'Năm', 'id': 'Năm/tháng','SALES': 'Doanh số', 'SALES_sum': 'Tổng doanh số'},
+                              labels={'parent': 'Năm', 'id': 'Danh mục','SALES': 'Doanh số', 'SALES_sum': 'Tổng doanh số'},
                               title='Tỉ lệ đóng góp của doanh số theo từng danh mục trong từng năm')
 
 fig_profit_ratio = px.sunburst(df, path=['YEAR_ID', 'CATEGORY'], values='PROFIT',
                                color='PROFIT',
-                               labels={'parent': 'Năm', 'id': 'Năm/tháng', 'PROFIT': 'Lợi nhuận', 'PROFIT_sum': 'Tổng lợi nhuận'},
+                               labels={'parent': 'Năm', 'id': 'Danh mục', 'PROFIT': 'Lợi nhuận', 'PROFIT_sum': 'Tổng lợi nhuận'},
                                title='Tỉ lệ đóng góp của lợi nhuận theo từng danh mục trong từng năm')
 
 total_sales = "${:,.2f}".format(round(df["SALES"].sum(), 2))

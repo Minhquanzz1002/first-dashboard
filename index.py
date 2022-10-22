@@ -10,20 +10,16 @@ appLoadData = firebase_admin.initialize_app(cred)
 
 dbFireStore = firestore.client()
 
-queryResults = list(dbFireStore.collection(u'tbl-20098151').where(u'DEALSIZE',u'==', 'Large').stream())
+queryResults = list(dbFireStore.collection(u'tbl-20098151').stream())
 listQueryResult = list(map(lambda x: x.to_dict(), queryResults))
 
 df = pd.DataFrame(listQueryResult)
-
-df['YEAR_ID'] = df['YEAR_ID'].astype('str')
-df['QTR_ID'] = df['QTR_ID'].astype('str')
 
 df["PROFIT"] = df["SALES"] - (df["QUANTITYORDERED"] * df["PRICEEACH"])
 dfGroupByYear = df.groupby("YEAR_ID").sum()
 dfGroupByYear["YEAR_ID"] = dfGroupByYear.index
 
 # TRỰC QUAN HÓA DỮ LIỆU WEB APP
-
 app = Dash(__name__)
 server = app.server
 app.title = 'Trực quan hóa dữ liệu'
@@ -48,9 +44,9 @@ fig_profit_ratio = px.sunburst(df, path=['YEAR_ID', 'CATEGORY'], values='PROFIT'
                                title='Tỉ lệ đóng góp của lợi nhuận theo từng danh mục trong từng năm')
 
 total_sales = "${:,.2f}".format(round(df["SALES"].sum(), 2))
-total_profit = "${:,.2f}".format(round(df['PROFIT'].sum(), 2))
+total_profit = "${:,.2f}".format(round(df["PROFIT"].sum(), 2))
 top_sales = "${:,.2f}".format(df.groupby('CATEGORY').sum()['SALES'].max())
-top_profit = "${:,.2f}".format(round(df.groupby('CATEGORY').sum()['PROFIT'].max(), 2))
+top_profit = "${:,.2f}".format(df.groupby('CATEGORY').sum()['PROFIT'].max())
 
 app.layout = html.Div(
     children=[
